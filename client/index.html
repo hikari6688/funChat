@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./button.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="user">
+        <!-- <span>Hikari</span>
+        <img src="./assets/images/cat.png" alt=""> -->
+      </div>
+      <div class="chatBox">
+        <ul class="chatBoxList"></ul>
+      </div>
+      <div class="func">
+        <input type="text" class="ipt" placeholder="请输入要发送的消息" onkeydown="entersearch()" />
+        <button class="button button-3d button-primary button-rounded" onclick="sendMsg()">发送</button>
+      </div>
+    </div>
+  </body>
+  <script src="./echo.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+  <script>
+    const ipt = document.querySelector('.ipt');
+    const socket = io('192.168.0.106:3000/');
+    // const socket = io("1.116.203.218:3000/");
+    sendWs = function (value) {
+      socket.emit('hello', value);
+    };
+    const sendMsg = () => {
+      const message = ipt.value;
+      socket.emit('talk', message);
+      ipt.value = '';
+      message && message.trim() && renderChat({ message, self: true });
+    };
+
+    function entersearch() {
+      var event = window.event || arguments.callee.caller.arguments[0];
+      if (event.keyCode == 13) {
+        sendMsg();
+      }
+    }
+    socket.on('cast', (message) => {
+      renderChat({ message });
+    });
+    const box = document.querySelector('.chatBoxList');
+    function renderChat(arg) {
+      const { self, message } = arg;
+      const li = document.createElement('Li');
+      if (self) {
+        li.className = 'self';
+        li.innerHTML = `
+              <span class="chatText">${message}</span>
+              <img src="./assets/images/cat.png" class="chatHeader"></i>
+            `;
+      } else {
+        li.className = 'other';
+        li.innerHTML = `
+              <img src="./assets/images/cat.png" class="chatHeader"></i>
+              <span class="chatText">${message}</span>
+            `;
+      }
+      box.appendChild(li);
+    }
+  </script>
+</html>

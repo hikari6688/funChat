@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Microsoft YaHei';
+  box-sizing: border-box;
+}
+html,body{
+height: 100vh;
+width: 100vw;
+}
+li {
+  list-style: none;
+}
+.wrap {
+  height: 100%;
+  width: 100%;
+  border: 1px solid #666;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: rgb(238, 238, 238);
+ 
+  
+}
+.user {
+  /* 头像姓名状态等 */
+  /* height: 40px; */
+  width: 100%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 22px;
+}
+.user img{
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  object-fit: cover;
+  background: white;
+}
+.user span{
+  font-size: 22px;
+  font-weight: 600;
+  }
+
+.chatBox {
+  /* 聊天内容区域 */
+  flex: 1;
+  background: white;
+  margin: 20px;
+  position: relative;
+}
+.chatBox ul {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  overflow-y: auto;
+}
+.chatBox ul li {
+  display: flex;
+  margin-bottom: 12px;
+}
+.chatBox ul li img {
+  width: 40px;
+  height: 40px;
+  /* background: lightgoldenrodyellow; */
+  border-radius: 6px;
+}
+.chatBox ul li span {
+  position: relative;
+  background: rgb(134 222 185);
+  max-width: 80%;
+  word-break: break-all;
+  padding: 6px;
+  border-radius: 9px;
+  color: white;
+  font-size: 18px;
+}
+/* 自己的聊天块 */
+.self {
+  justify-content: flex-end;
+}
+.self {
+}
+.self img {
+  margin-left: 10px;
+}
+.self span::after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 15px solid rgb(134 222 185);
+  border-bottom: 10px solid transparent;
+  right: -10px;
+  top: 9px;
+  transform: rotate(180deg);
+}
+/* 别人的聊天块 */
+.other img {
+  margin-right: 10px;
+}
+.other span::before {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 15px solid rgb(134 222 185);
+  border-bottom: 10px solid transparent;
+  left: -10px;
+  top: 9px;
+}
+
+.chatBox ul li {
+  display: flex;
+}
+
+.func {
+  /* 操作区域 */
+  height: 80px;
+  display: flex;
+  padding: 0 20px;
+}
+.func .btn {
+}
+.func .ipt {
+  height: 42px;
+  flex: 1;
+  margin-right: 38px;
+  background: white;
+  border: none;
+  outline: none;
+  text-indent: 10px;
+}
+.ipt:focus {
+  border: none;
+}
