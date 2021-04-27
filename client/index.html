@@ -18,24 +18,35 @@
         <ul class="chatBoxList"></ul>
       </div>
       <div class="func">
-        <input type="text" class="ipt" placeholder="请输入要发送的消息" onkeydown="entersearch()" />
-        <button class="button button-3d button-primary button-rounded" onclick="sendMsg()">发送</button>
+        <input
+          type="text"
+          class="ipt"
+          placeholder="请输入要发送的消息"
+          onkeydown="entersearch()"
+        />
+        <button
+          class="button button-3d button-primary button-rounded"
+          onclick="sendMsg()"
+        >
+          发送
+        </button>
       </div>
     </div>
   </body>
   <script src="./echo.js"></script>
   <script src="https://cdn.bootcdn.net/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
   <script>
-    const ipt = document.querySelector('.ipt');
-    const socket = io('192.168.0.106:3000/');
+    const ipt = document.querySelector(".ipt");
+    // const socket = io('192.168.0.106:3000/');
+    const socket = io("192.168.0.165:3000/"); //公司
     // const socket = io("1.116.203.218:3000/");
     sendWs = function (value) {
-      socket.emit('hello', value);
+      socket.emit("hello", value);
     };
     const sendMsg = () => {
       const message = ipt.value;
-      socket.emit('talk', message);
-      ipt.value = '';
+      socket.emit("talk", message);
+      ipt.value = "";
       message && message.trim() && renderChat({ message, self: true });
     };
 
@@ -45,21 +56,21 @@
         sendMsg();
       }
     }
-    socket.on('cast', (message) => {
+    socket.on("cast", (message) => {
       renderChat({ message });
     });
-    const box = document.querySelector('.chatBoxList');
+    const box = document.querySelector(".chatBoxList");
     function renderChat(arg) {
       const { self, message } = arg;
-      const li = document.createElement('Li');
+      const li = document.createElement("Li");
       if (self) {
-        li.className = 'self';
+        li.className = "self";
         li.innerHTML = `
               <span class="chatText">${message}</span>
               <img src="./assets/images/cat.png" class="chatHeader"></i>
             `;
       } else {
-        li.className = 'other';
+        li.className = "other";
         li.innerHTML = `
               <img src="./assets/images/cat.png" class="chatHeader"></i>
               <span class="chatText">${message}</span>
